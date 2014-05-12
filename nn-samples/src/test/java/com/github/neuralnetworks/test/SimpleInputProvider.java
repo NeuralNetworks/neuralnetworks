@@ -7,6 +7,7 @@ import com.github.neuralnetworks.training.TrainingInputProvider;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by linkerlin on 5/12/14.
@@ -14,6 +15,7 @@ import java.util.List;
 public class SimpleInputProvider implements TrainingInputProvider {
     float[][] X;
     float[][] Y;
+    private Random random=new Random();
     /**
      * List of modifiers to apply on the input data after the conversion
      */
@@ -95,11 +97,13 @@ public class SimpleInputProvider implements TrainingInputProvider {
     @Override
     public void afterSample() {
         this.currentInput++;
+        this.currentTarget++;
     }
 
     @Override
     public void beforeSample() {
-
+        currentInput=random.nextInt(getInputSize());
+        currentTarget=currentInput;
     }
     public InputConverter getInputConverter() {
         return inputConverter;
